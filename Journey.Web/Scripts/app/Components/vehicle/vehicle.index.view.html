@@ -1,0 +1,23 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <h1>Alla fordon</h1>
+        <hr><br>
+        <div class="col-md-6" ng-repeat="vehicle in VehicleIndexCtrl.vehicles">
+            <div ng-if="vehicle.IsDefault">
+                <span style="color: red; font-size: larger" class="glyphicon glyphicon-heart pull-right"></span>
+            </div>
+            {{vehicle.RegistrationNumber}}
+            <div ng-if="vehicle.IsActive">
+                <span style="color: forestgreen">Aktiv</span>
+            </div>
+            <div ng-if="!vehicle.IsActive">
+                <span style="color: darkred">Inaktiv</span>
+            </div>
+
+            <br />
+            <a href="#!/vehicles/delete/{{vehicle.Id}}" class="btn btn-danger">Ta bort</a>
+            <a href="#!/vehicles/details/{{vehicle.Id}}" class="btn btn-warning">Ändra</a>
+            <hr />
+        </div>
+    </div>
+</div>

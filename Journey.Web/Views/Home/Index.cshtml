@@ -1,0 +1,95 @@
+﻿<style>
+    .backdrop {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: transparent;
+        z-index: -1;
+    }
+</style>
+
+<div ng-app="app">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Journey", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div ng-class="{backdrop: navCollapsed === false}" ng-click="navCollapsed = !navCollapsed"></div>
+            <div class="navbar-collapse collapse" uib-collapse="navCollapsed">
+                <ul class="nav navbar-nav">
+                    <li ng-click="navCollapsed = true">@Html.ActionLink("Home", "Index", "Home")</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+                            <a href="#" class="dropdown-toggle" id="simple-dropdown" uib-dropdown-toggle>
+                                Fordon
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-dropdown">
+                                <li><a href="#!/vehicles" ng-click="navCollapsed = true">Alla</a></li>
+                                <li><a href="#!/vehicles/register" ng-click="navCollapsed = true">Nytt</a></li>
+                            </ul>
+                        </li>
+
+                    <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+                        <a href="#" class="dropdown-toggle" id="trips-dropdown" uib-dropdown-toggle>
+                            Resor
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="trips-dropdown">
+                            <li><a href="#!/trips" ng-click="navCollapsed = true">Start</a></li>
+                            <li><a href="#!/trips/report" ng-click="navCollapsed = true">PDF-rapport</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#!/chat" ng-click="navCollapsed = true">Hjälp <span class="glyphicon glyphicon-comment"></span></a></li>
+                    }
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div ng-view>
+
+        </div>
+    </div>
+</div>
+
+
+<!--Core-->
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@*<script src="~/Scripts/bootstrap.min.js"></script>*@
+<!--Angular Core-->
+<script src="~/Scripts/angular.min.js"></script>
+<script src="~/Scripts/angular-route.min.js"></script>
+<script src="~/Scripts/ui-bootstrap.min.js"></script>
+
+
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+<script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+
+@*This is a JavaScript proxy created by the SignalR to enables the clients to connect the server hub*@
+<script src="~/signalr/hubs"></script>
+
+<script src="~/Scripts/scrollglue.js"></script>
+
+<script src="~/Scripts/app/app.js"></script>
+<script src="~/Scripts/app/config.js"></script>
+
+<!--Controllers-->
+<script src="~/Scripts/app/components/vehicle/vehicle.controller.js"></script>
+<script src="~/Scripts/app/components/trip/trip.controller.js"></script>
+<script src="~/Scripts/app/Components/chat/chat.controller.js"></script>
+
+<!--services-->
+<script src="~/Scripts/app/components/vehicle/vehicle.services.js"></script>
+<script src="~/Scripts/app/components/trip/trip.services.js"></script>

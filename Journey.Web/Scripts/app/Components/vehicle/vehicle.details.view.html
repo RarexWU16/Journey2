@@ -1,0 +1,73 @@
+﻿<div class="row">
+    <div class="col-md-12">
+
+        <div class="lastTrip">
+            <div class="col-md-6">
+                <h2>Fordon</h2>
+                <hr>
+                <p><span style="font-size:large">{{VehicleDetailsCtrl.details.RegistrationNumber}}</span></p>
+
+                <button class="btn btn-primary" ng-click="VehicleDetailsCtrl.toggleShowAll()">Visa</button>
+
+                <dl ng-if="VehicleDetailsCtrl.showAll">
+                    <dt>Id</dt>
+                    <dd>{{VehicleDetailsCtrl.details.Id}}</dd>
+                    <dt>Registrationnumber</dt>
+                    <dd>{{VehicleDetailsCtrl.details.RegistrationNumber}}</dd>
+                    <dt>Status</dt>
+                    <dd>{{VehicleDetailsCtrl.details.IsActive}}</dd>
+                    <dt>Default</dt>
+                    <dd>{{VehicleDetailsCtrl.details.IsDefault}}</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h2>Ändra</h2>
+            <hr>
+            <form ng-submit="VehicleDetailsCtrl.edit()" validate>
+
+                <!--<div class="form-group">
+                    <label for="status">Status</label>
+                    <div ng-if="VehicleDetailsCtrl.details.IsActive == true">
+                        <input type="checkbox" name="IsActive" value="true" ng-model="VehicleDetailsCtrl.vehicle.IsActive" btn-checkbox ng-checked="true" />
+                    </div>
+                    <div ng-if="VehicleDetailsCtrl.details.IsActive == false">
+                        <input type="checkbox" name="IsActive" value="false" ng-model="VehicleDetailsCtrl.vehicle.IsActive" btn-checkbox />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="status">Favorit</label>
+                    <div ng-if="VehicleDetailsCtrl.details.IsDefault == true">
+                        <input type="checkbox" name="IsDefault" value="true" ng-model="VehicleDetailsCtrl.vehicle.IsDefault" btn-checkbox ng-checked="true" />
+                    </div>
+                    <div ng-if="VehicleDetailsCtrl.details.IsDefault == false">
+                        <input type="checkbox" name="IsDefault" value="false" ng-model="VehicleDetailsCtrl.vehicle.IsDefault" btn-checkbox />
+                    </div>
+                </div>-->
+                <div class="form-group">
+                    <label for="status">Status</label>
+
+                        <input type="radio" name="IsActive" value="true" ng-model="VehicleDetailsCtrl.vehicle.IsActive"/>
+                    Aktiv
+         
+                        <input type="radio" name="IsActive" value="false" ng-model="VehicleDetailsCtrl.vehicle.IsActive"/>
+                    Inaktiv
+
+                </div>
+
+                <div class="form-group">
+                    <label for="status">Favorit</label>
+                    <input type="radio" name="IsDefault" value="true" ng-model="VehicleDetailsCtrl.vehicle.IsDefault" />
+                    Ja
+
+                    <input type="radio" name="IsDefault" value="false" ng-model="VehicleDetailsCtrl.vehicle.IsDefault" />
+                    Nej
+                </div>
+
+                <a href="#!/vehicles" class="btn btn-default">Tillbaka</a>
+                <button type="submit" class="btn btn-success">Spara</button>
+            </form>
+        </div>
+    </div>
+</div>

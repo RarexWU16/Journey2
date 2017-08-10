@@ -1,0 +1,51 @@
+﻿<h2>Pågående resa</h2>
+<div class="row" ng-if="TripIndexCtrl.isTrip == true">
+    <div class="col-md-12">
+        <div>
+            <p>
+                {{TripIndexCtrl.onGoingTrip.Vehicle.RegistrationNumber}} - {{TripIndexCtrl.onGoingTrip.DateTime}}
+            </p>
+        </div>
+        <a href="#!/trips/ongoing/{{TripIndexCtrl.onGoingTrip.Id}}" class="btn btn-danger">Avsluta Resa</a>
+    </div>
+</div>
+<div class="row" ng-if="TripIndexCtrl.isTrip == false">
+    <div class="col-md-12">
+        <p>Ingen pågående resa!</p>
+        <a href="#!/trips/register" class="btn btn-success">Ny resa</a>
+    </div>
+</div>
+
+<hr />
+
+<h2>Senaste Resan</h2>
+<div class="lastTrip row">
+    <div class="col-md-12">
+        <p>{{TripIndexCtrl.lastTrip.Vehicle.RegistrationNumber}} - {{TripIndexCtrl.lastTrip.DateTime}}</p>
+
+        <button class="btn btn-primary" ng-click="TripIndexCtrl.toggleShowAll()">Visa</button>
+
+        <dl ng-if="TripIndexCtrl.showAll">
+            <dt>Fordon</dt>
+            <dd>{{TripIndexCtrl.lastTrip.Vehicle.RegistrationNumber}}</dd>
+            <dt>Datum</dt>
+            <dd>{{TripIndexCtrl.lastTrip.DateTime}}</dd>
+            <dt>Startmil</dt>
+            <dd>{{TripIndexCtrl.lastTrip.StartMilage}}</dd>
+            <dt>Mätarställare ankomst</dt>
+            <dd>{{TripIndexCtrl.lastTrip.ArrivalMilage}}</dd>
+            <dt>Startadress</dt>
+            <dd>{{TripIndexCtrl.lastTrip.StartAddress}}</dd>
+            <dt>Destination</dt>
+            <dd>{{TripIndexCtrl.lastTrip.ArrivalAddress}}</dd>
+            <dt>Ärende</dt>
+            <dd>{{TripIndexCtrl.lastTrip.Errand}}</dd>
+            <dt>Noteringar</dt>
+            <dd>{{TripIndexCtrl.lastTrip.Notes}}</dd>
+            <dt>Id</dt>
+            <dd>{{TripIndexCtrl.lastTrip.Id}}</dd>
+        </dl>
+    </div>
+</div>
+
+

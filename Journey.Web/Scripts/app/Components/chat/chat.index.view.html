@@ -1,0 +1,23 @@
+﻿
+<div>
+    <div>
+        <div class="form-group">
+            <label for="username">Namn:</label>
+            <input id="username" type="text" class="form-control" ng-model="ChatIndexCtrl.name" /><br />
+        </div>
+        <div style="height: 200px; border: 1px dotted black; border-radius: 5px; overflow-y: scroll" scroll-glue>
+            <div>
+                <div ng-repeat="chat in ChatIndexCtrl.messages track by $index">
+                    <span ng-bind="chat"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="message">Meddelande:</label>
+            <input id="message" type="text" class="form-control" ng-model="ChatIndexCtrl.message" /><br />
+        </div>
+        <input type="button" class="btn btn-success" value="Send" ng-click="ChatIndexCtrl.newMessage()" />
+    </div>
+
+    
+</div>

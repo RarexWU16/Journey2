@@ -1,0 +1,11 @@
+DEBUG 2017-08-08 10:58:37,455 16613ms VehiclesController     GetVehicles        - GET Request traced
+DEBUG 2017-08-08 10:58:39,869 19026ms VehiclesController     GetVehicles        - GET Request traced
+DEBUG 2017-08-08 11:00:07,451 14308ms VehiclesController     GetVehicles        - GET Request traced
+DEBUG 2017-08-08 11:01:14,222 81079ms VehiclesController     GetVehicles        - GET Request traced
+DEBUG 2017-08-08 11:07:33,518 12919ms VehiclesController     GetVehicles        - GET Request traced
+DEBUG 2017-08-08 11:15:20,614 11746ms VehiclesController     GetVehicles        - GET Request traced
+DEBUG 2017-08-08 11:43:09,744  4087ms VehiclesController     GetVehicles        - GET Request traced
+DEBUG 2017-08-08 11:43:11,213  5556ms VehiclesController     GetVehicles        - GET Request traced
+DEBUG 2017-08-08 11:43:39,447  4135ms VehiclesController     GetVehicles        - GET Request traced
+DEBUG 2017-08-08 11:43:40,954  5643ms VehiclesController     GetVehicles        - GET Request traced
+DEBUG 2017-08-08 11:43:42,435  7123ms VehiclesController     GetVehicles        - GET Request traced
