@@ -48,14 +48,14 @@
             });
         }
 
-        this.getReport = function (vehicle) {
-            console.log(vehicle.Vehicle.Id);
+        this.report = function (queryObj) {
+            console.log(queryObj);
             return $http({
-                method: 'GET',
+                method: 'POST',
                 url: baseURL + 'report',
-                data: vehicle.Vehicle.Id
+                data: queryObj
             });
-        };
+        }
 
         this.pdfReport = function (queryObj) {
             console.log(queryObj);

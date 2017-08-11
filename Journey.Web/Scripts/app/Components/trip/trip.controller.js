@@ -2,13 +2,15 @@
     angular.module('app.components.trip', [])
 			.controller('TripIndexController', TripIndexController)
             .controller('TripRegisterController', TripRegisterController)
+            .controller('TripPDFReportController', TripPDFReportController)
             .controller('TripReportController', TripReportController)
             .controller('TripDetailsController', TripDetailsController);
 
     TripIndexController.$inject = ['tripService', '$window'];
     TripDetailsController.$inject = ['tripService', '$window', '$scope'];
     TripRegisterController.$inject = ['tripService', 'vehicleService', '$window'];
-    TripReportController.$inject = ['tripService', 'vehicleService', '$window'];
+    TripPDFReportController.$inject = ['tripService', 'vehicleService', '$window'];
+    TripReportController.$inject = ['tripService', 'vehicleService', '$window', '$scope'];
 
     function TripIndexController(tripService) {
         const vm = this;
@@ -41,7 +43,7 @@
                 vm.onGoingTrip = response.data;
                 vm.isTrip = true;
             }
-            
+
         });
     }
 
@@ -74,7 +76,7 @@
             trip.StartMilage = details.StartMilage;
             trip.StartAddress = details.StartAddress;
             trip.ArrivalAddress = details.ArrivalAddress;
-            trip.Errand = details.Errand;        
+            trip.Errand = details.Errand;
 
             tripService.register(trip).then((response) => {
 
@@ -117,7 +119,7 @@
 
         vm.register = function () {
             tripService.register(vm.trip).then((response) => {
-                
+
                 if (response.data === 'success') {
                     console.log("Trip saved...");
                     //TODO Redirect and save message
@@ -132,11 +134,37 @@
         };
     }
 
-    function TripReportController(tripService, vehicleService, $window) {
+    function TripPDFReportController(tripService, vehicleService) {
         const vm = this;
         var queryObj = {};
         var vehicles = {};
-        var report = {}
+        var report = null;
+
+        vm.vehicles = function () {
+            vehicleService.getVehicles().then((response) => {
+
+                vm.vehicles = response.data;
+            });
+        };
+
+
+        vm.pdfReport = function () {
+            tripService.pdfReport(vm.queryObj).then((response) => {
+
+                vm.report = response.data;
+
+            }).catch((err) => {
+                console.log(err);
+            });
+        };
+
+    }
+
+    function TripReportController(tripService, vehicleService, $window, $scope) {
+        const vm = this;
+        var queryObj = {};
+        var vehicles = {};
+        var report = null;
 
         vm.vehicles = function () {
             vehicleService.getVehicles().then((response) => {
@@ -147,14 +175,15 @@
         };
 
 
-        vm.pdfReport = function () {
-            console.log("Creating PDF");
-            console.log(vm.queryObj);
-            tripService.pdfReport(vm.queryObj).then((response) => {
-                console.log("Pdf created...");
+        vm.chart = function () {
+
+            tripService.report(vm.queryObj).then((response) => {
+
                 vm.report = response.data;
-                //TODO Redirect and save message
-                $window.location.href = '#!/trips/';
+
+                $scope.labels = ["0-20 km", "21-50 km", "51-200 km"];
+                $scope.data = [vm.report.ZeroToTwenty, vm.report.TwentyOneToFifty, vm.report.FiftyOneToTwoHundred];
+
 
             }).catch((err) => {
                 console.log(err);

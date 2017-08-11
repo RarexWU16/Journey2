@@ -1,9 +1,9 @@
 ﻿<div class="row">
     <div class="col-md-12">
         <div class="col-md-6">
-            <h2>Skapa PDF</h2>
+            <h2>Skapa Diagram</h2>
             <hr>
-            <form ng-submit="TripReportCtrl.pdfReport()" validate>
+            <form ng-submit="TripReportCtrl.chart()" validate>
                 <div class="form-group">
                     <label for="vehicle">Välj fordon</label>
                     <select class="form-control" id="vehicle" name="vehicle" ng-init="TripReportCtrl.vehicles()" ng-model="TripReportCtrl.queryObj.Id" ng-options="item.Id as item.RegistrationNumber for item in TripReportCtrl.vehicles">
@@ -21,8 +21,15 @@
                     <input type="date" class="form-control" id="lastDate" placeholder="Datum" ng-model="TripReportCtrl.queryObj.LastDate">
                 </div>
                 <a href="#!/trips" class="btn btn-default">Tillbaka</a>
-                <button type="submit" class="btn btn-success">Skapa PDF</button>
+                <button type="submit" class="btn btn-success">Skapa</button>
             </form>
+            
+            <!--Chart-->
+            <div style="padding-top: 10px" ng-if="TripReportCtrl.report">
+                <hr />
+                <canvas id="doughnut" class="chart chart-doughnut" chart-data="data" chart-labels="labels"></canvas>   
+            </div>
         </div>
     </div>
 </div>
+

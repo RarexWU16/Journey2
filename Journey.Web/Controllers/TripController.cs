@@ -5,6 +5,7 @@ using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.draw;
 using Journey.Domain.Entities;
 using Journey.Web.Models;
+using Journey.Web.Models.Data;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
@@ -22,13 +23,6 @@ using System.Web.Http.Results;
 
 namespace Journey.Web.Controllers
 {
-    public class QueryObj
-    {
-        public Guid Id { get; set; }
-        public DateTime FirstDate { get; set; }
-        public DateTime LastDate { get; set; }
-    }
-
     public class TripController : ApiController
     {
 
@@ -38,8 +32,6 @@ namespace Journey.Web.Controllers
            .GetUserManager<ApplicationUserManager>()
            .FindById(HttpContext.Current.User.Identity
            .GetUserId());
-
-        //&& user.Vehicles == user.Vehicles.Find()
 
         [Authorize]
         [HttpGet]
@@ -57,24 +49,24 @@ namespace Journey.Web.Controllers
         [Authorize]
         [HttpPost]
         [Route("api/trips/pdfreport")]
-        public IHttpActionResult PDFReport(QueryObj queryObj)
+        public IHttpActionResult PDFReport(DateForm query)
         {
 
-            if (queryObj.Id == null)
+            if (query.Id == null)
             {
                 return BadRequest();
             }
 
             //TODO add dateTime query
             List<Trip> listOfTrips = db.Trips
-                .Where(x => x.Vehicle.Id == queryObj.Id
-                        && x.DateTime >= queryObj.FirstDate
-                        && x.DateTime <= queryObj.LastDate).Include(x => x.Vehicle)
+                .Where(x => x.Vehicle.Id == query.Id
+                        && x.DateTime >= query.FirstDate
+                        && x.DateTime <= query.LastDate).Include(x => x.Vehicle)
                 .ToList();
 
 
             var currentDate = DateTime.Now;
-            var currentVehicle = db.Vehicles.Where(x => x.Id == queryObj.Id).First();
+            var currentVehicle = db.Vehicles.Where(x => x.Id == query.Id).First();
 
 
 
@@ -114,19 +106,23 @@ namespace Journey.Web.Controllers
             string fileName = "Journey_" + currentDate.ToString("yyyyMMddHHmmssfff") + "_" + currentVehicle.RegistrationNumber + ".pdf";
 
 
-
+            //If the directory in the filepath doesn't exist make a new one
             Directory.CreateDirectory(Path.GetDirectoryName(filePath));
 
-            FileStream fs = new FileStream(filePath + fileName, FileMode.Create, FileAccess.Write, FileShare.None);
 
+            FileStream fs = new FileStream(filePath + fileName, FileMode.Create, FileAccess.Write, FileShare.None);
             Document doc = new Document();
+
 
             PdfWriter writer = PdfWriter.GetInstance(doc, fs);
 
+
             doc.Open();
 
-            doc.Add(new Paragraph("Journey - " + currentDate.ToShortDateString()));
-            doc.Add(new Paragraph("Fordon - " + currentVehicle.RegistrationNumber));
+            //Populate pdf with data
+            doc.Add(new Paragraph("Rapportdatum: " + currentDate.ToShortDateString()));
+            doc.Add(new Paragraph("Fordon: " + currentVehicle.RegistrationNumber));
+            doc.Add(new Paragraph("Datumspann: " + query.FirstDate.ToShortDateString() + " - " + query.LastDate.ToShortDateString()));
 
             Chunk linebreak = new Chunk(new LineSeparator(4f, 100f, BaseColor.BLACK, Element.ALIGN_CENTER, -1));
 
@@ -134,21 +130,32 @@ namespace Journey.Web.Controllers
             doc.Add(table);
             doc.Close();
 
+            string baseUrl = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
 
-            return Ok(filePath + fileName);
+            return Ok(baseUrl + "/Pdf/" + fileName);
         }
 
         [Authorize]
-        [HttpGet]
+        [HttpPost]
         [Route("api/trips/report")]
-        public IHttpActionResult Report(Guid id)
+        public IHttpActionResult Report(DateForm query)
         {
 
             List<Trip> listOfTrips = db.Trips
-                .Where(x => x.Vehicle.Id == id)
-                .ToList();
+               .Where(x => x.Vehicle.Id == query.Id
+                       && x.DateTime >= query.FirstDate
+                       && x.DateTime <= query.LastDate).Include(x => x.Vehicle)
+               .ToList();
 
-            return Ok(listOfTrips);
+
+            TravelDistanceChart numberOfTrips = new TravelDistanceChart();
+
+            numberOfTrips.ZeroToTwenty = listOfTrips.Where(x => x.ArrivalMilage - x.StartMilage <= 20).Count();
+            numberOfTrips.TwentyOneToFifty = listOfTrips.Where(x => x.ArrivalMilage - x.StartMilage >= 21 && x.ArrivalMilage - x.StartMilage <= 50).Count();
+            numberOfTrips.FiftyOneToTwoHundred = listOfTrips.Where(x => x.ArrivalMilage - x.StartMilage >= 51 && x.ArrivalMilage - x.StartMilage <= 200).Count();
+
+
+            return Ok(numberOfTrips);
         }
 
         [Authorize]

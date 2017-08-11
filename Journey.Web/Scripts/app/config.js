@@ -59,6 +59,12 @@
             controllerAs: 'TripDetailsCtrl',
 
         })
+        .when('/trips/pdfreport', {
+            templateUrl: '../Scripts/app/components/trip/trip.pdfreport.view.html',
+            controller: 'TripPDFReportController',
+            controllerAs: 'TripPDFReportCtrl',
+
+        })
         .when('/trips/report', {
             templateUrl: '../Scripts/app/components/trip/trip.report.view.html',
             controller: 'TripReportController',
