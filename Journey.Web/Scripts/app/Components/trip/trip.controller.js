@@ -118,13 +118,6 @@
             vm.favorite.Id = vm.trip.Vehicle.Id;
         }
 
-        //tripService.getLastTrip().then((response) => {
-        //    vm.trip.StartMilage = response.data.ArrivalMilage;
-        //});
-        vm.kanin = function () {
-            vm.trip.StartAddress = vm.trip.StartAddress;
-        }
-
 
         vm.getLocation = function () {
 

@@ -1,0 +1,22 @@
+{
+  "version": "1.0.0",
+  "name": "journey",
+  "private": true,
+  "devDependencies": {
+    "babel-preset-env": "^1.6.0",
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-uglify": "^3.0.0",
+    "pump": "^1.0.2"
+  },
+  "main": "gulp",
+  "dependencies": {},
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Daniel",
+  "license": "ISC",
+  "description": ""
+}
