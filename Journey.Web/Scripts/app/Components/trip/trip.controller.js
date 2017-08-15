@@ -8,7 +8,7 @@
 
     TripIndexController.$inject = ['tripService', '$window'];
     TripDetailsController.$inject = ['tripService', '$window', '$scope'];
-    TripRegisterController.$inject = ['tripService', 'vehicleService', '$window'];
+    TripRegisterController.$inject = ['tripService', 'vehicleService', '$window', '$scope'];
     TripPDFReportController.$inject = ['tripService', 'vehicleService', '$window'];
     TripReportController.$inject = ['tripService', 'vehicleService', '$window', '$scope'];
 
@@ -77,13 +77,12 @@
             trip.StartAddress = details.StartAddress;
             trip.ArrivalAddress = details.ArrivalAddress;
             trip.Errand = details.Errand;
+            trip.Notes = details.Notes;
 
             tripService.register(trip).then((response) => {
 
                 if (response.data === 'success') {
                     console.log("Trip updated...");
-                    //TODO Redirect and save message
-                    console.log('#!/trips/ongoing/' + details.Id)
                     $window.location.href = '#!/trips';
                 }
                 else {
@@ -95,7 +94,7 @@
         };
     }
 
-    function TripRegisterController(tripService, vehicleService, $window) {
+    function TripRegisterController(tripService, vehicleService, $window, $scope) {
         const vm = this;
         var trip = {};
         var vehicles = {};
@@ -106,7 +105,6 @@
                 console.log(response);
                 console.log(response.data);
 
-
                 //Some sorting and filtering
                 response.data.sort(function (x, y) { return y.IsDefault - x.IsDefault });
                 var filtered = response.data.filter(function (el) { return el.IsActive == true; });
@@ -115,14 +113,71 @@
                 vm.favorite = filtered[0];
             });
         };
+       
+        vm.update = function () {
+            vm.favorite.Id = vm.trip.Vehicle.Id;
+        }
 
+        //tripService.getLastTrip().then((response) => {
+        //    vm.trip.StartMilage = response.data.ArrivalMilage;
+        //});
+        vm.kanin = function () {
+            vm.trip.StartAddress = vm.trip.StartAddress;
+        }
+
+
+        vm.getLocation = function () {
+
+            function getLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition, Error);
+                } else {
+                    console.log("No support for geolocation!");
+                }
+            }
+            function error(error) {
+                console.log(error);
+            }
+
+            function showPosition(position) {
+                console.log(position);
+
+                var geocoder = new google.maps.Geocoder;
+
+                var coords = position.coords;
+
+                var userPosition = { lat: parseFloat(coords.latitude), lng: parseFloat(coords.longitude) };
+
+                geocoder.geocode({ 'location': userPosition }, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        if (results[0]) {
+                            var formattedAddress = results[0].formatted_address;
+
+                            vm.trip.StartAddress = formattedAddress;
+                            $scope.$apply();
+                            console.log(formattedAddress);
+                        } else {
+                            console.log("No match!");
+                        }
+                    } else {
+                        console.log("Error");
+                    }
+                });
+            }
+
+            getLocation();
+
+        }
 
         vm.register = function () {
             tripService.register(vm.trip).then((response) => {
 
+                if (response.data === 'error') {
+                    alert("Startmätarställning måste vara lägre än föregående resa.");
+                }
+
                 if (response.data === 'success') {
                     console.log("Trip saved...");
-                    //TODO Redirect and save message
                     $window.location.href = '#!/trips/';
                 }
                 else {

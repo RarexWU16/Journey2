@@ -5,17 +5,11 @@
         <form ng-submit="TripRegisterCtrl.register()" validate>
             <div class="form-group">
                 <label for="vehicle">Välj fordon</label>
-                <select class="form-control" id="vehicle" name="vehicle"  ng-selected="TripRegisterCtrl.trip.Vehicle.Id = TripRegisterCtrl.favorite.Id" ng-init="TripRegisterCtrl.vehicles()" ng-model="TripRegisterCtrl.trip.Vehicle.Id" ng-options="item.Id as item.RegistrationNumber for item in TripRegisterCtrl.vehicles">
+                <select class="form-control" id="vehicle" name="vehicle" ng-selected="TripRegisterCtrl.trip.Vehicle.Id = TripRegisterCtrl.favorite.Id" ng-init="TripRegisterCtrl.vehicles()" ng-model="TripRegisterCtrl.trip.Vehicle.Id" ng-options="item.Id as item.RegistrationNumber for item in TripRegisterCtrl.vehicles" ng-change="TripRegisterCtrl.update()">
                     <option value="">Välj fordon...</option>
-                 </select>
+                </select>
             </div>
 
-            <!--<div class="form-group">
-                <label for="vehicleRepeat">Välj fordon</label>
-                <select ng-model="TripRegisterCtrl.trip.Vehicle.Id" class="form-control" id="vehicleRepeat">
-                    <option ng-init="TripRegisterCtrl.vehicles" ng-repeat="vehicle in TripRegisterCtrl.vehicles" value="{{vehicle.Id}}">{{vehicle.RegistrationNumber}}</option>
-                </select>
-            </div>-->
             <div class="form-group">
                 <label for="startMilage">Datum</label>
                 <input type="date" class="form-control" id="dateTime" placeholder="Datum" ng-model="TripRegisterCtrl.trip.DateTime">
@@ -24,13 +18,13 @@
                 <label for="startMilage">Start mätarställning</label>
                 <input type="number" class="form-control" id="startMilage" placeholder="Mätarställning Start" ng-model="TripRegisterCtrl.trip.StartMilage" required>
             </div>
-            <div class="form-group">
-                <label for="arrivalMilage">Stopp mätarställning</label>
-                <input type="number" class="form-control" id="arrivalMilage" placeholder="Mätarställning ankomst" ng-model="TripRegisterCtrl.trip.ArrivalMilage" required>
-            </div>
+           
             <div class="form-group">
                 <label for="startAddress">Utgångsadress</label>
-                <input type="text" class="form-control" id="startAddress" placeholder="Utgångsadress" ng-model="TripRegisterCtrl.trip.StartAddress" required>
+                <div class="input-group">
+                    <span class="input-group-addon" ng-click="TripRegisterCtrl.getLocation()" title="Klicka för att hämta din position!"><i class="glyphicon glyphicon-map-marker"></i></span>
+                    <input type="text" class="form-control" id="startAddress" placeholder="Utgångsadress" ng-model="TripRegisterCtrl.trip.StartAddress" required>
+                </div>
             </div>
             <div class="form-group">
                 <label for="arrivalAddress">slutadress</label>
@@ -49,3 +43,6 @@
         </form>
     </div>
 </div>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdExxOLmzBawPEkyyUelA4t0f1e73iIbU&callback=angular.noop">
+</script>

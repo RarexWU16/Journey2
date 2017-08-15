@@ -6,6 +6,7 @@ using iTextSharp.text.pdf.draw;
 using Journey.Domain.Entities;
 using Journey.Web.Models;
 using Journey.Web.Models.Data;
+using log4net;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
@@ -25,6 +26,7 @@ namespace Journey.Web.Controllers
 {
     public class TripController : ApiController
     {
+        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public ApplicationDbContext db = new ApplicationDbContext();
 
@@ -57,7 +59,6 @@ namespace Journey.Web.Controllers
                 return BadRequest();
             }
 
-            //TODO add dateTime query
             List<Trip> listOfTrips = db.Trips
                 .Where(x => x.Vehicle.Id == query.Id
                         && x.DateTime >= query.FirstDate
@@ -174,7 +175,6 @@ namespace Journey.Web.Controllers
         [Route("api/trips/ongoing")]
         public IHttpActionResult OnGoing()
         {
-            //TODO FELHANTERA
             try
             {
                 Trip onGoingTrip = db.Trips
@@ -206,12 +206,10 @@ namespace Journey.Web.Controllers
 
                 return Ok(lastTrip);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return Ok("No Trip");
-                throw ex;
             }
-           //TODO felhantera if null
             
         }
         [Authorize]
@@ -226,8 +224,18 @@ namespace Journey.Web.Controllers
                 {
                     return BadRequest();
                 }
+
                 Vehicle designatedVehicle = db.Vehicles.Find(trip.Vehicle.Id);
                 trip.Vehicle = designatedVehicle;
+
+                //last trip with the same vehicle
+                var lastTripDate = db.Trips.Where(x => x.Vehicle.Id == designatedVehicle.Id).Max(x => x.DateTime);
+                var lastTrip = db.Trips.Where(x => x.DateTime == lastTripDate).First();
+
+                if (trip.StartMilage < lastTrip.ArrivalMilage)
+                {
+                    return Ok("error");
+                }
 
                 Trip newTrip = new Trip(trip.DateTime,
                                     trip.StartMilage,
@@ -252,16 +260,15 @@ namespace Journey.Web.Controllers
                     Trip existingTrip = db.Trips.Find(trip.Id);
 
                     existingTrip.ArrivalMilage = trip.ArrivalMilage;
-                    existingTrip.Notes = trip.Notes;
 
                     db.Entry(existingTrip).State = EntityState.Modified;
                     db.SaveChanges();
-                    //TODO FELHANTERA
+
                     return Ok("success");
                 }
                 catch (Exception ex)
                 {
-
+                    Log.Error(ex);
                     throw ex;
                 }
                 

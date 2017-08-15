@@ -26,7 +26,7 @@ namespace Domain.Entities
 
             this.DateTime = DateTime;
             this.StartMilage = startMilage;
-            this.ArrivalMilage = arrivalMilage;
+            this.ArrivalMilage = 0;
             this.StartAddress = startAdress;
             this.ArrivalAddress = arrivalAddress;
             this.Errand = errand;

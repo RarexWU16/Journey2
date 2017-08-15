@@ -36,46 +36,10 @@
             <hr><br>
 
             <form ng-submit="TripDetailsCtrl.edit()" validate>
-                <!--<div class="form-group">
-                    <label for="type">Välj fordonstyp</label>
-                    <select class="form-control" id="type" ng-init="TripRegisterCtrl.vehicles()" ng-model="TripRegisterCtrl.trip.Vehicle.Id" ng-options="item.Id as item.RegistrationNumber for item in TripRegisterCtrl.vehicles"></select>
-                </div>-->
-                <!--<div class="form-group">
-                    <label for="tripId">Id</label>
-                    <input type="text" class="form-control hidden" id="tripId" placeholder="{{TripDetailsCtrl.details.Id}}" ng-model="TripDetailsCtrl.trip.Id">
-                </div>
-                <div class="form-group">
-                    <label for="registrationNumber">registrationNumber</label>
-                    <input type="text" class="form-control" id="registrationNumber" placeholder="{{TripDetailsCtrl.details.Vehicle.RegistrationNumber}}" ng-model="TripDetailsCtrl.trip.Vehicle.RegistrationNumber">
-                </div>
 
-                <div class="form-group">
-                    <label for="dateTime">Datum</label>
-                    <input type="date" class="form-control" id="dateTime" placeholder="{{TripDetailsCtrl.details.DateTime}}" ng-model="TripDetailsCtrl.trip.DateTime">
-                </div>
-                <div class="form-group">
-                    <label for="startMilage">Start mätarställning</label>
-                    <input type="number" class="form-control" id="startMilage" placeholder="{{TripDetailsCtrl.details.StartMilage}}" ng-model="TripDetailsCtrl.trip.StartMilage">
-                </div>-->
                 <div class="form-group">
                     <label for="arrivalMilage">Stopp mätarställning</label>
                     <input type="number" class="form-control" id="arrivalMilage" placeholder="{{TripDetailsCtrl.details.ArrivalMilage}}" ng-model="TripDetailsCtrl.trip.ArrivalMilage" required>
-                </div>
-                <!--<div class="form-group">
-                    <label for="startAddress">Utgångsadress</label>
-                    <input type="text" class="form-control" id="startAddress" placeholder="{{TripDetailsCtrl.details.StartAddress}}" ng-model="TripDetailsCtrl.trip.StartAddress">
-                </div>
-                <div class="form-group">
-                    <label for="arrivalAddress">slutadress</label>
-                    <input type="text" class="form-control" id="arrivalAddress" placeholder="{{TripDetailsCtrl.details.ArrivalAddress}}" ng-model="TripDetailsCtrl.trip.ArrivalAddress">
-                </div>
-                <div class="form-group">
-                    <label for="errand">Ärende</label>
-                    <input type="text" class="form-control" id="errand" placeholder="{{TripDetailsCtrl.details.Errand}}" ng-model="TripDetailsCtrl.trip.Errand">
-                </div>-->
-                <div class="form-group">
-                    <label for="notes">Notes</label>
-                    <input type="text" class="form-control" id="notes" placeholder="{{TripDetailsCtrl.details.Notes}}" ng-model="TripDetailsCtrl.trip.Notes">
                 </div>
 
                 <a href="#!/trips" class="btn btn-default">Tillbaka</a>

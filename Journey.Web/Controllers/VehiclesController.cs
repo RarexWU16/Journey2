@@ -41,8 +41,6 @@ namespace Journey.Web.Controllers
             .Where(x => x.Id != null && x.User.Id == user.Id)
             .ToList();
 
-            var formatted = JsonConvert.SerializeObject(listOfVehicles);
-
             return Ok(listOfVehicles);
 
         }
@@ -71,7 +69,6 @@ namespace Journey.Web.Controllers
                 }
                 catch (Exception ex)
                 {
-                    //TODO FELHANTERA
                     Log.Error(ex);
                     throw ex;
                 }
@@ -85,8 +82,6 @@ namespace Journey.Web.Controllers
                 {
                     Vehicle selectedVehicle = db.Vehicles.Find(vehicle.Id);
 
-                    //if (User.IsInRole("administrator"))
-                    //{
 
                         //If none are changed
                         if (vehicle.IsActive == selectedVehicle.IsActive && vehicle.IsDefault == selectedVehicle.IsDefault)
@@ -115,28 +110,6 @@ namespace Journey.Web.Controllers
 
                             return Ok("success");
                         }
-                    //}
-
-                    //if (User.IsInRole("user"))
-                    //{
-                    //    if (vehicle.IsActive == selectedVehicle.IsActive)
-                    //    {
-                    //        selectedVehicle.IsActive = vehicle.IsActive;
-
-                    //        return Ok("success");
-                    //    }
-                    //    else
-                    //    {
-                    //        selectedVehicle.IsActive = vehicle.IsActive;
-
-                    //        db.Entry(selectedVehicle).State = EntityState.Modified;
-                    //        db.SaveChanges();
-
-                    //        return Ok("success");
-                    //    }
-                    //}
-                    //TODO FELHANTERA
-                    return BadRequest();
                 }
                 catch (Exception ex)
                 {
@@ -158,7 +131,7 @@ namespace Journey.Web.Controllers
 
             if (selectedVehicle == null)
             {
-                return BadRequest(); //TODO FELHANTERA "User tried to see details of non-existing vehicle."
+                return BadRequest("User tried to see details of non-existing vehicle.");
             }
 
             return Ok(selectedVehicle);
@@ -191,43 +164,6 @@ namespace Journey.Web.Controllers
                 throw ex;
             }
         }
-
-        //[Authorize]
-        //[HttpGet]
-        //[Route("api/vehicles/edit/{id}")]
-        //public IHttpActionResult Edit(Vehicle selectedVehicle)
-        //{
-        //    Vehicle vehicle = db.Vehicles.Find(selectedVehicle.Id);
-
-        //    if (vehicle == null)
-        //    {
-        //        return BadRequest(); //TODO FELHANTERA "User tried to edit non-existing vehicle."
-        //    }
-
-        //    //TODO skilj på vad användare och admin kan ändra
-        //    if (User.IsInRole("administrator"))
-        //    {
-        //        vehicle.IsActive = selectedVehicle.IsActive;
-
-        //        db.Entry(vehicle).State = EntityState.Modified;
-        //        db.SaveChanges();
-
-        //        return Ok("success");
-        //    }
-
-        //    if (User.IsInRole("user"))
-        //    {
-        //        vehicle.IsDefault = selectedVehicle.IsDefault;
-
-        //        db.Entry(vehicle).State = EntityState.Modified;
-        //        db.SaveChanges();
-
-        //        return Ok("success");
-
-        //    }
-        //    return BadRequest();
-        //}
-
 
         protected override void Dispose(bool disposing)
         {
