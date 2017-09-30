@@ -9,7 +9,7 @@ namespace Journey.Web.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Journey.Domain.Entities.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
@@ -17,7 +17,7 @@ namespace Journey.Web.Migrations
             ContextKey = "Journey.Web.Models.ApplicationDbContext";
         }
 
-        protected override void Seed(Journey.Domain.Entities.ApplicationDbContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

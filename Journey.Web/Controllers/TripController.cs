@@ -228,15 +228,18 @@ namespace Journey.Web.Controllers
                 Vehicle designatedVehicle = db.Vehicles.Find(trip.Vehicle.Id);
                 trip.Vehicle = designatedVehicle;
 
-                //last trip with the same vehicle
-                var lastTripDate = db.Trips.Where(x => x.Vehicle.Id == designatedVehicle.Id).Max(x => x.DateTime);
-                var lastTrip = db.Trips.Where(x => x.DateTime == lastTripDate).First();
-
-                if (trip.StartMilage < lastTrip.ArrivalMilage)
+                if (db.Trips.Where(x => x.Vehicle.Id == designatedVehicle.Id).Count() > 0)
                 {
-                    return Ok("error");
+                    var lastTripDate = db.Trips.Where(x => x.Vehicle.Id == designatedVehicle.Id).Max(x => x.DateTime);
+                    var lastTrip = db.Trips.Where(x => x.DateTime == lastTripDate).First();
+
+                    if (trip.StartMilage < lastTrip.ArrivalMilage)
+                    {
+                        return Ok("error");
+                    }
                 }
 
+                //last trip with the same vehicle             
                 Trip newTrip = new Trip(trip.DateTime,
                                     trip.StartMilage,
                                     trip.ArrivalMilage,

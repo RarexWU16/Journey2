@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{9E9B186B-79DF-42EF-989C-35D8167859B7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Journey.Domain", "Domain\Journey.Domain.csproj", "{9E9B186B-79DF-42EF-989C-35D8167859B7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Journey.Web", "Journey.Web\Journey.Web.csproj", "{506611FC-499B-45BF-A6EE-F89AADCBFEB7}"
 EndProject
@@ -24,5 +24,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AFA69325-6BF5-44F5-B5B0-BF50649194D8}
 	EndGlobalSection
 EndGlobal
