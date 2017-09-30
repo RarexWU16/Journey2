@@ -49,7 +49,7 @@
 
     function TripDetailsController(tripService, $window, $scope) {
 
-        const vm = this;
+        var vm = this;
         var url = $window.location.href;
         var tripId = url.substr(url.lastIndexOf('/') + 1);
 
@@ -95,7 +95,7 @@
     }
 
     function TripRegisterController(tripService, vehicleService, $window, $scope) {
-        const vm = this;
+        var vm = this;
         var trip = {};
         var vehicles = {};
         var favorite = {};
@@ -183,7 +183,7 @@
     }
 
     function TripPDFReportController(tripService, vehicleService) {
-        const vm = this;
+        var vm = this;
         var queryObj = {};
         var vehicles = {};
         var report = null;
@@ -208,7 +208,7 @@
 
     }
 
-    function TripReportController(tripService, vehicleService, $window, $scope) {
+    function TripReportController(tripService, vehicleService, $window, $scope) {        
         const vm = this;
         var queryObj = {};
         var vehicles = {};

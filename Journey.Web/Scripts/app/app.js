@@ -1,5 +1,4 @@
 ﻿(function() {
-    'use strict';
 
     angular.module('app', ['chart.js', 'luegg.directives', 'ui.bootstrap', 'ngRoute', 'app.config',
         'app.components.vehicle',

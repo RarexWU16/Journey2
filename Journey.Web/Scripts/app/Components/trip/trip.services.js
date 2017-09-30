@@ -9,7 +9,7 @@
     tripService.$inject = ['$http'];
 
     function tripService($http) {
-        const baseURL = 'http://localhost:33355/api/trips/';
+        var baseURL = 'http://localhost:33355/api/trips/';
 
 
         this.getTrips = function () {

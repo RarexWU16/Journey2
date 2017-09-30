@@ -9,7 +9,7 @@
     vehicleService.$inject = ['$http'];
 
     function vehicleService($http) {
-        const baseURL = 'http://localhost:33355/api/vehicles/';
+        var baseURL = 'http://localhost:33355/api/vehicles/';
         
 
         this.getVehicles = function () {

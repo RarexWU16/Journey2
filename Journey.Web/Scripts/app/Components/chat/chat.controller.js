@@ -38,10 +38,6 @@
             $scope.$apply();
         };
 
-        
-            
-
-
         $.connection.hub.start().done(function () {
             vm.chatHub.server.getAllRooms();
 
@@ -50,12 +46,10 @@
             }, 5000);
 
             vm.disconnect = function () {
-                console.log('DC')
                 vm.chatHub.server.removeRoom(vm.subject);
 
-                if (vm.rooms.indexOf(vm.subject) > -1) {
-                    vm.rooms.splice(vm.subject, 1);
-                }
+                vm.rooms = [];
+                vm.chatHub.server.getAllRooms();
                 vm.isInChat = false;
             }
             
@@ -66,8 +60,9 @@
             }
 
             vm.createRoom = function () {
-                vm.chatHub.server.createRoom(vm.subject);
+                vm.chatHub.server.createRoom(vm.subject, vm.name);
                 vm.messages = [];
+                vm.messages.push("Vänta på att en administratör ska ansluta innan du skriver...");
                 vm.isInChat = true;
             };
 

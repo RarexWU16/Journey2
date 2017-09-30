@@ -4,17 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Journey</title>
-    <link href="~/Content/css/Site.css" rel="stylesheet" />
     <script src="~/Scripts/vendor/jquery-1.10.2.min.js"></script>
-    @Styles.Render("~/Content/css")
-    @*@Scripts.Render("~/bundles/modernizr")*@
-    @*@Scripts.Render("~/bundles/jquery")*@
-    @*@Scripts.Render("~/bundles/bootstrap")*@
-    @*@RenderSection("scripts", required: false)*@
-
+    <link href="~/Content/css/Site.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/css/ui-bootstrap-csp.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstrap-datetimepicker.css" rel="stylesheet" />
 </head>
 <body>
-    
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -22,8 +19,5 @@
             <p>&copy; @DateTime.Now.Year - Journey</p>
         </footer>
     </div>
-
-    
-
 </body>
 </html>

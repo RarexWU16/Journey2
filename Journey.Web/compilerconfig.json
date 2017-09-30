@@ -1,0 +1,27 @@
+[
+  {
+    "outputFile": "Content/css/Site.css",
+    "inputFile": "Content/Site.less",
+    "sourceMap": false
+  },
+  {
+    "outputFile": "dist/app.es5.js",
+    "inputFile": "dist/app.js",
+    "sourceMap": false
+  },
+  {
+    "outputFile": "dist/components.es5.js",
+    "inputFile": "dist/components.js",
+    "sourceMap": false
+  },
+  {
+    "outputFile": "dist/vendor.es5.js",
+    "inputFile": "dist/vendor.js",
+    "sourceMap": false
+  },
+  {
+    "outputFile": "Scripts/app/app.es5.js",
+    "inputFile": "Scripts/app/app.js",
+    "sourceMap": false
+  }
+]
